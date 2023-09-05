@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: stripe
+    database: raw_demo
+    schema: stripe
+    tables:
+      - name: payment
+        loaded_at_field: _batched_at
+        freshness:
+          warn_after: {count: 10000, period: day}
+        columns:
+          - name: id
+          - name: order_id
+          - name: payment_method
+          - name: state
+          - name: amount
+          - name: created
+          - name: _batched_at
