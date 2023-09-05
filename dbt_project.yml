@@ -35,8 +35,6 @@ models:
   my_new_project:
     marts:
       materialized: table
-    intermediate:
-      materialized: ephemeral
     staging:
       materialized: view
 
