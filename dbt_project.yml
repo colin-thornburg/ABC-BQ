@@ -40,4 +40,6 @@ models:
       materialized: view
     BI:
       materialized: table
+    workshop_sept6_2023:
+      materialized: view
 
