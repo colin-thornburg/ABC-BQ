@@ -49,3 +49,36 @@ models:
       - name: specialty
         data_type: varchar
         description: "The specialty of the provider."
+
+semantic_models:
+  - name: patient_provider_analytics
+    defaults:
+      agg_time_dimension: date_of_birth
+    description: |
+      This model integrates patient and provider data to offer insights into patient demographics and provider specialties. The grain of the table is one row per patient-provider interaction.
+    model: ref('dim_patient_provider')
+    entities:
+      - name: patient
+        type: primary
+        expr: patient_id
+      - name: provider
+        type: foreign
+        expr: provider_id
+    dimensions:
+      - name: patient_name
+        expr: patient_name
+        type: categorical
+      - name: date_of_birth
+        expr: date_of_birth
+        type: time
+        type_params:
+          time_granularity: year
+      - name: provider_name
+        expr: provider_name
+        type: categorical
+      - name: specialty
+        expr: specialty
+        type: categorical
+    measures: []
+
+metrics: []
