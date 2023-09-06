@@ -1,9 +1,3 @@
-{{
-    config(
-        materialized='dynamic_table'
-    )
-}}
-
 with customers as (
 
     select
