@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: dim_customers
+    group: sales_analytics
+    access: public
+    description: "The dim customers model provides a comprehensive table of customer details."
+    config:
+      contract:
+        enforced: false
