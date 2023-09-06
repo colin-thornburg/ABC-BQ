@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: fct_claims
+    group: healthcare_analytics
+    access: public
+    description: "The fct_claims model aggregates data at the claim level, incorporating details from both patients and providers tables. This model enables deep insights into claim patterns and provider performance, facilitating informed decision-making in healthcare management and policy formulation. It is optimized for Snowflake, providing a robust platform for data analytics and reporting."
+    config:
+      contract:
+        enforced: true
+    meta:
+        owner: 'Healthcare Data Analyst'
+    columns:
+      - name: claim_id
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "The unique identifier for each claim."
+
+      - name: patient_id
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "The unique identifier for each patient."
+
+      - name: patient_name
+        data_type: varchar
+        constraints:
+          - type: not_null
+        description: "The full name of the patient."
+
+      - name: provider_id
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "The unique identifier for each provider."
+
+      - name: provider_name
+        data_type: varchar
+        constraints:
+          - type: not_null
+        description: "The full name of the provider."
+
+      - name: specialty
+        data_type: varchar
+        description: "The specialty of the provider."
+
+      - name: claim_date
+        data_type: date
+        constraints:
+          - type: not_null
+        description: "The date on which the claim was made."
+
+      - name: claim_amount
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "The amount claimed."
+
+      - name: total_claim_amount
+        data_type: number
+        description: "The total claim amount for each provider."
+
+      - name: avg_claim_amount
+        data_type: number
+        description: "The average claim amount for each provider."
+
+      - name: claim_count
+        data_type: number
+        description: "The count of claims made to each provider."

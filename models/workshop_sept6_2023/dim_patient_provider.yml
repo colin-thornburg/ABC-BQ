@@ -1,0 +1,51 @@
+version: 2
+
+groups:
+  - name: healthcare_analytics
+    owner:
+      name: Claims Data Engineering Team
+      email: colin.thornburg@dbtlabs.com
+
+
+models:
+  - name: dim_patient_provider
+    group: healthcare_analytics
+    access: public
+    description: "The dim_patient_provider model provides a comprehensive view of patients and their associated providers, offering detailed insights into the healthcare journey of patients. This model is optimized for Snowflake, facilitating easy analysis and reporting for healthcare analytics."
+    config:
+      contract:
+        enforced: true
+    meta:
+        owner: 'The core Data Engineering team'
+    columns:
+      - name: patient_id
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "The unique identifier for each patient."
+
+      - name: patient_name
+        data_type: varchar
+        constraints:
+          - type: not_null
+        description: "The full name of the patient."
+
+      - name: date_of_birth
+        data_type: date
+        description: "The date of birth of the patient."
+
+      - name: provider_id
+        data_type: number
+        constraints:
+          - type: not_null
+        description: "The unique identifier for each provider."
+
+      - name: provider_name
+        data_type: varchar
+        constraints:
+          - type: not_null
+        description: "The full name of the provider."
+
+      - name: specialty
+        data_type: varchar
+        description: "The specialty of the provider."
