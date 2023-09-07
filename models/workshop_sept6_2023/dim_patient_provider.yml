@@ -51,7 +51,7 @@ models:
         description: "The specialty of the provider."
 
 semantic_models:
-  - name: patient_provider_analytics
+  - name: dim_patient_provider
     defaults:
       agg_time_dimension: date_of_birth
     description: |
