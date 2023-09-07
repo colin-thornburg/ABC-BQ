@@ -70,7 +70,7 @@ models:
         description: "The count of claims made to each provider."
 
 semantic_models:
-  - name: claims_analytics
+  - name: fct_claims
     defaults:
       agg_time_dimension: claim_date
     description: |
