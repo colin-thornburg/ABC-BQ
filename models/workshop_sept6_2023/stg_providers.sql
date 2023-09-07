@@ -4,4 +4,4 @@ SELECT
     Specialty as specialty,
     loaded_at as loaded_at_timestamp
 FROM 
-    {{ ref('providers') }}
+    {{ source('health_claims','providers') }}

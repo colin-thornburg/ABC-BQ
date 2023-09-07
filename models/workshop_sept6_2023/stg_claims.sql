@@ -6,4 +6,4 @@ SELECT
     Claim_Amount as claim_amount,
     loaded_at as loaded_at_timestamp
 FROM 
-    {{ ref('claims') }}
+    {{ source('health_claims', 'claims') }}

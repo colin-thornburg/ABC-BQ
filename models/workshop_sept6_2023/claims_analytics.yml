@@ -1,0 +1,17 @@
+version: 2
+
+exposures:
+
+  - name: claims_analytics
+    type: dashboard
+    maturity: high
+    url: https://10ax.online.tableau.com/#/site/dbtcolintdev885935/views/JaffleShop/OrderAnalytics
+    description: >
+      Finding claims insights"
+
+    depends_on:
+      - ref('claims_analytics')
+
+    owner:
+      name: Danny the Data Developer
+      email: data@jaffleshop.com
