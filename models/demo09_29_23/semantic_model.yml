@@ -1,0 +1,44 @@
+semantic_models:
+  - name: tenant_property_leasing_master # Unique name for the semantic model
+    model: ref('tenant_property_leasing_master') # References the dbt model
+    description: "A consolidated model joining tenant, property, and leasing data with standardized address information."
+    
+    defaults:
+      agg_time_dimension: lease_date # Default aggregation time dimension
+    
+    entities: 
+      # Defining entities with types and expressions
+      - name: tenant
+        type: primary
+        expr: tenant_id
+      - name: property
+        type: foreign
+        expr: property_address
+      - name: lease
+        type: foreign
+        expr: comp_id
+    
+    dimensions: 
+      # Different ways to group or slice data for a metric
+      - name: lease_start_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: lease_end_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: property_type
+        type: categorical
+        expr: property_type
+    
+    measures: 
+      # Aggregations applied to columns
+      - name: total_lease_price
+        description: "The total lease price for the lease."
+        agg: sum
+        expr: lease_price
+      - name: average_floor_area
+        description: "The average floor area of the property."
+        agg: average
+        expr: floor_area
