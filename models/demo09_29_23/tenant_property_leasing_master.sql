@@ -1,7 +1,8 @@
 
 {{ config(
     materialized='incremental',
-    unique_key='comp_id'
+    unique_key='comp_id',
+    on_schema_change='fail'
 ) }}
 
 -- Intermediate model to join tenants, properties, and leasing data incrementally
