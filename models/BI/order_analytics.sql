@@ -15,7 +15,6 @@ select
     {{ format_dollars('amount') }} as amount,
     orders.created_at,
     customers.first_order_date,
-    customers.most_recent_order_date,
     customers.most_recent_order_date
 from orders
 left join customers on orders.customer_id = customers.customer_id
