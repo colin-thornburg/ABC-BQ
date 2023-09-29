@@ -19,7 +19,11 @@ semantic_models:
         expr: comp_id
     
     dimensions: 
-      # Different ways to group or slice data for a metric
+      - name: lease_date  
+        type: time  
+        expr: date_trunc('day', lease_date)  
+        type_params:
+          time_granularity: day
       - name: lease_start_date
         type: time
         type_params:
@@ -42,3 +46,17 @@ semantic_models:
         description: "The average floor area of the property."
         agg: average
         expr: floor_area
+
+metrics:  
+ - name: total_lease_price
+   label: lease_price_metric
+   description: "The total lease price for the lease."
+   type: simple
+   type_params:
+     measure: total_lease_price
+ - name: average_floor_area
+   label: avg_floor_area
+   description: "The average floor area of the property."
+   type: simple
+   type_params:
+     measure: average_floor_area
