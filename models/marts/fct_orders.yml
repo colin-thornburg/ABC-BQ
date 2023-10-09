@@ -5,6 +5,12 @@ models:
     group: sales_analytics
     access: public
     description: "The fact orders model provides a comprehensive table of order details."
+    columns: 
+      - name: order_id
+        tests:
+          - unique:
+              config:
+                store_failures: true
     config:
       contract:
         enforced: false
