@@ -1,12 +1,3 @@
-{{
-    config(
-        materialized='incremental',
-        unique_id='id',
-        post-hook="arbitray sQL"
-    )
-}}
-
-
 with customers as (
 
     select
