@@ -9,4 +9,4 @@ sources:
       - name: revenue
         freshness:
           warn_after: {count: 6, period: hour}
-        loaded_at_field: run_timestamp
+        loaded_at_field: load_timestamp
