@@ -1,6 +1,6 @@
-id,month_year,product_category,revenue,run_timestamp
-1,2023-01,Electronics,5000,'2023-01-01 00:00:00.000'
-2,2023-02,Books,3000,'2023-01-01 00:00:00.000'
-3,2023-03,Clothing,7000,'2023-01-01 00:00:00.000'
-4,2023-04,Home Appliances,6500,'2023-01-01 00:00:00.000'
-5,2023-05,Furniture,8000,'2023-01-01 00:00:00.000'
+id,month_year,product_category,revenue,load_timestamp
+1,2023-01,Electronics,5000,2023-01-01 00:00:00.000
+2,2023-02,Books,3000,2023-01-01 00:00:00.000
+3,2023-03,Clothing,7000,2023-01-01 00:00:00.000
+4,2023-04,Home Appliances,6500,2023-01-01 00:00:00.000
+5,2023-05,Furniture,8000,2023-01-01 00:00:00.000
