@@ -16,7 +16,7 @@ sources:
     database: colint_prod
     schema: prod
     tables:
-      - name: source_orders
+      - name: trigger_new_orders
         freshness:
           warn_after: {count: 6, period: hour}
         loaded_at_field: order_date::timestamp
