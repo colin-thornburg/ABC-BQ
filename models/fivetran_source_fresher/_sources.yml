@@ -14,7 +14,7 @@ sources:
   - name: source_fresher_demo
     description: To demo source freshness
     database: colint_prod
-    schema: production
+    schema: prod
     tables:
       - name: source_orders
         freshness:
