@@ -13,7 +13,7 @@ sources:
   
   - name: source_fresher_demo
     description: To demo source freshness
-    database: colint_dev
+    database: colint_prod
     schema: dbt_cthornburg
     tables:
       - name: source_orders
