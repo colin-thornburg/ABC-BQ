@@ -5,7 +5,7 @@ exposures:
   - name: order_analytics
     type: dashboard
     maturity: high
-    url: https://10ax.online.tableau.com/#/site/dbtcolintdev885935/views/JaffleShop/OrderAnalytics
+    url: http://localhost:8501/
     description: >
       Track daily orders and perform return analysis"
 
