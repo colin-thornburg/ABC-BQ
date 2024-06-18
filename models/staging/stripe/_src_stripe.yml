@@ -2,6 +2,9 @@ version: 2
 
 sources:
   - name: stripe
+    loader: stitch
+    tags:
+      - stitch
     database: raw_demo
     schema: stripe
     tables:
