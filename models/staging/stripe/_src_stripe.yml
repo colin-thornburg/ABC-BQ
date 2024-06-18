@@ -5,6 +5,11 @@ sources:
     loader: stitch
     tags:
       - stitch
+    meta:
+      lineage:
+        previous_layer: "FDN INGEST"
+        process: "Data is ingested from various sources, cleaned, and loaded into FDN STAGING."
+        responsible_team: "Data Engineering"
     database: raw_demo
     schema: stripe
     tables:
