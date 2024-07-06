@@ -1,0 +1,40 @@
+-- models/intermediate/int_visit_info.sql
+
+WITH stg_pv1 AS (
+    SELECT * FROM {{ ref('stg_hl7_pv1') }}
+),
+
+deduplicated AS (
+    SELECT 
+        *,
+        ROW_NUMBER() OVER (
+            PARTITION BY MESSAGE_CONTROL_ID 
+            ORDER BY _AIRBYTE_EXTRACTED_AT DESC
+        ) AS row_num
+    FROM stg_pv1
+)
+
+SELECT
+    MESSAGE_CONTROL_ID,
+    PATIENT_TYPE_ID,
+    ADMIT_SOURCE_ID,
+    MODE_OF_ARRIVAL,
+    ADMISSION_TYPE_ID,
+    ADMIT_DATE_TIME,
+    DISCHARGE_DATE_TIME,
+    DISCHARGE_DISPOSITION_ID,
+    ACCOUNT_STATUS_ID,
+    FINANCIAL_CLASS_FINANCIAL_CLASS_CODE_ID,
+    SENDING_FACILITY,
+    PATIENT_CLASS_ID,
+    ARRV_MODE_CD_SSUKT,
+    PT_OF_ORIG_CD_SSUKT,
+    DSCRG_STS_CD_SSUKT,
+    VST_TYPE_CD_SSUKT,
+    SPCL_PGM_CD_SSUKT,
+    HSPTL_SRVC_CD_SSUKT,
+    CONF_CD_SSUKT,
+    VISIT_NUM_ID_NUM,
+    PV1_HASH_KEY
+FROM deduplicated
+WHERE row_num = 1
