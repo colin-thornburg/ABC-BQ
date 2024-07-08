@@ -1,7 +1,9 @@
 -- models/staging/stg_hl7_clinical_keys.sql
 
 WITH source AS (
-    SELECT * FROM {{ source('edwhl7_staging_views', 'HL7_CLINICAL_KEYS') }}
+    SELECT * 
+   -- FROM {{ source('edwhl7_staging_views', 'HL7_CLINICAL_KEYS') }}
+    FROM {{ ref('hl7_clinical_keys') }}
 ),
 
 renamed AS (

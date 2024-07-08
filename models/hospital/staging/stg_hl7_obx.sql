@@ -1,7 +1,9 @@
 -- models/staging/stg_hl7_obx.sql
 
 WITH source AS (
-    SELECT * FROM {{ source('edwhl7_staging_views', 'HL7_OBX') }}
+    SELECT * 
+    -- FROM {{ source('edwhl7_staging_views', 'HL7_OBX') }}
+    from {{ ref('hl7_obx') }}
 ),
 
 renamed AS (

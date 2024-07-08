@@ -1,0 +1,6 @@
+FACILITY_MNEMONIC_CS,NETWORK_MNEMONIC_CS,FACILITY_NAME,NETWORK_NAME,FACILITY_TYPE,FACILITY_ADDRESS,FACILITY_CITY,FACILITY_STATE,FACILITY_ZIP,FACILITY_COUNTY,FACILITY_COUNTRY,ACTIVE_FLAG,FACILITY_HASH_KEY,_AIRBYTE_EXTRACTED_AT,_AIRBYTE_HL7_FACILITY_LOAD_LIST_HASHID
+FACIL_A,NTWRK_1,Central Hospital,Healthcare Network 1,HOSPITAL,123 Main St,Metropolis,NY,10001,New York,USA,Y,hash_facil_a_ntwrk_1,2023-06-01 08:00:00,airbyte_hash_facil_001
+FACIL_B,NTWRK_1,Eastside Clinic,Healthcare Network 1,CLINIC,456 Oak Ave,Metropolis,NY,10002,New York,USA,Y,hash_facil_b_ntwrk_1,2023-06-01 09:15:00,airbyte_hash_facil_002
+FACIL_C,NTWRK_2,Westside Medical Center,Healthcare Network 2,HOSPITAL,789 Elm St,Gotham,NJ,20001,Hudson,USA,Y,hash_facil_c_ntwrk_2,2023-06-01 10:30:00,airbyte_hash_facil_003
+FACIL_D,NTWRK_2,Southside Urgent Care,Healthcare Network 2,URGENT_CARE,321 Pine Rd,Gotham,NJ,20002,Hudson,USA,Y,hash_facil_d_ntwrk_2,2023-06-01 11:45:00,airbyte_hash_facil_004
+FACIL_E,NTWRK_3,Northside Specialty Center,Healthcare Network 3,SPECIALTY,654 Maple Ln,Star City,PA,30001,Allegheny,USA,Y,hash_facil_e_ntwrk_3,2023-06-01 13:00:00,airbyte_hash_facil_005

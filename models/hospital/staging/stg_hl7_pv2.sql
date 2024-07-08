@@ -1,7 +1,9 @@
 -- models/staging/stg_hl7_pv2.sql
 
 WITH source AS (
-    SELECT * FROM {{ source('edwhl7_staging_views', 'HL7_PV2') }}
+    SELECT * 
+    -- FROM {{ source('edwhl7_staging_views', 'HL7_PV2') }}
+    from {{ ref('hl7_pv2') }}
 ),
 
 renamed AS (

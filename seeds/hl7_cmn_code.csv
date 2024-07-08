@@ -1,0 +1,6 @@
+CD_SSUKT,CD_SK,CD,CD_DESC,CD_ALT_DESC,SRS_SYS_REF_CD,EFCTV_FR_DT,EFCTV_TO_DT,CMN_CODE_HASH_KEY,_AIRBYTE_EXTRACTED_AT,_AIRBYTE_HL7_CMN_CODE_HASHID
+VST_TYPE_001,1001,AMB,Ambulatory,Outpatient visit,VST_TYPE_CD,2023-01-01,2099-12-31,hash_vst_001,2023-06-01 08:00:00,airbyte_hash_cmn_001
+PT_ORIG_002,1002,ER,Emergency Room,ER admission,PT_OF_ORIG_CD,2023-01-01,2099-12-31,hash_pt_orig_002,2023-06-01 09:15:00,airbyte_hash_cmn_002
+DSCRG_STS_003,1003,HOME,Discharged to home,Regular discharge,DSCRG_STS_CD,2023-01-01,2099-12-31,hash_dscrg_003,2023-06-01 10:30:00,airbyte_hash_cmn_003
+HSPTL_SRVC_004,1004,MED,Medical Service,General medical care,HSPTL_SRVC_CD,2023-01-01,2099-12-31,hash_hsptl_004,2023-06-01 11:45:00,airbyte_hash_cmn_004
+CONF_005,1005,PRIV,Private Room,Single patient room,CONF_CD,2023-01-01,2099-12-31,hash_conf_005,2023-06-01 13:00:00,airbyte_hash_cmn_005

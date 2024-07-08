@@ -1,7 +1,9 @@
 -- models/staging/stg_hl7_pid.sql
 
 WITH source AS (
-    SELECT * FROM {{ source('edwhl7_staging_views', 'HL7_PID') }}
+    SELECT * 
+    -- FROM {{ source('edwhl7_staging_views', 'HL7_PID') }}
+    from {{ ref('hl7_pid') }}
 ),
 
 renamed AS (

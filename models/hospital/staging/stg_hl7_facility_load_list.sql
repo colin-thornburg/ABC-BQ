@@ -1,7 +1,9 @@
 -- models/staging/stg_hl7_facility_load_list.sql
 
 WITH source AS (
-    SELECT * FROM {{ source('edwcdm_views', 'HL7_FACILITY_LOAD_LIST') }}
+    SELECT * 
+    --FROM {{ source('edwcdm_views', 'HL7_FACILITY_LOAD_LIST') }}
+    FROM {{ ref('hl7_facility_load_list') }}
 ),
 
 renamed AS (

@@ -1,7 +1,9 @@
 -- models/staging/stg_hl7_cmn_code.sql
 
 WITH source AS (
-    SELECT * FROM {{ source('edwhl7_staging_views', 'HL7_CMN_CODE') }}
+    SELECT * 
+   -- FROM {{ source('edwhl7_staging_views', 'HL7_CMN_CODE') }}
+   from {{ ref('hl7_cmn_code') }}
 ),
 
 renamed AS (
