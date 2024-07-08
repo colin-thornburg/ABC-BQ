@@ -10,10 +10,10 @@ epic_logic AS (
         *,
         ROW_NUMBER() OVER (
             PARTITION BY ENCNT_SK 
-            ORDER BY VLD_FR_TS, MSG_CTRL_ID_TXT, REC_RANK, DW_INSRT_TS
+            ORDER BY VLD_FR_TS DESC, MSG_CTRL_ID_TXT DESC, REC_RANK DESC, DW_INSRT_TS DESC
         ) AS EPIC_RANK
     FROM wt_encounter_detail_02
-    WHERE SRC_SYS_REF_CD = 'EPIC' AND COID = '26960'
+    WHERE SRC_SYS_REF_CD = 'EPIC' AND CAST(COID AS STRING) = '26960'
 ),
 
 -- CTE for Meditech-specific logic
@@ -22,75 +22,46 @@ meditech_logic AS (
         *,
         ROW_NUMBER() OVER (
             PARTITION BY ENCNT_SK 
-            ORDER BY VLD_FR_TS, MSG_CTRL_ID_TXT, REC_RANK, DW_INSRT_TS
+            ORDER BY VLD_FR_TS DESC, MSG_CTRL_ID_TXT DESC, REC_RANK DESC, DW_INSRT_TS DESC
         ) AS MEDITECH_RANK
     FROM wt_encounter_detail_02
     WHERE SRC_SYS_REF_CD IN ('MEDITECH 6.0', 'EXPANSE')
+),
+
+-- Join all together
+joined_data AS (
+    SELECT
+        wd.*,
+        e.ENCNT_TS AS EPIC_ENCNT_TS,
+        e.ADMT_TS AS EPIC_ADMT_TS,
+        e.DSCRG_TS AS EPIC_DSCRG_TS,
+        e.DSCRG_STS_CD_SK AS EPIC_DSCRG_STS_CD_SK,
+        m.EXPCT_NUM_OF_INS_PLAN_CNT AS MEDITECH_EXPCT_NUM_OF_INS_PLAN_CNT
+    FROM wt_encounter_detail_02 wd
+    LEFT JOIN epic_logic e ON wd.ENCNT_SK = e.ENCNT_SK AND e.EPIC_RANK = 1
+    LEFT JOIN meditech_logic m ON wd.ENCNT_SK = m.ENCNT_SK AND m.MEDITECH_RANK = 1
 )
 
 SELECT
-    wd.*,
-    -- EPIC-specific ENCNT_TS and ADMT_TS logic
+    *,
     CASE 
-        WHEN wd.SRC_SYS_REF_CD = 'EPIC' AND wd.COID = '26960' 
-        THEN COALESCE(
-            (SELECT e.ENCNT_TS 
-             FROM epic_logic e 
-             WHERE e.ENCNT_SK = wd.ENCNT_SK AND e.EPIC_RANK <= wd.REC_RANK
-             ORDER BY e.EPIC_RANK DESC
-             LIMIT 1),
-            wd.ENCNT_TS
-        )
-        ELSE wd.ENCNT_TS
-    END AS ENCNT_TS,
+        WHEN SRC_SYS_REF_CD = 'EPIC' AND CAST(COID AS STRING) = '26960' THEN COALESCE(EPIC_ENCNT_TS, ENCNT_TS)
+        ELSE ENCNT_TS
+    END AS UPDATED_ENCNT_TS,
     CASE 
-        WHEN wd.SRC_SYS_REF_CD = 'EPIC' AND wd.COID = '26960' 
-        THEN COALESCE(
-            (SELECT e.ADMT_TS 
-             FROM epic_logic e 
-             WHERE e.ENCNT_SK = wd.ENCNT_SK AND e.EPIC_RANK <= wd.REC_RANK
-             ORDER BY e.EPIC_RANK DESC
-             LIMIT 1),
-            wd.ADMT_TS
-        )
-        ELSE wd.ADMT_TS
-    END AS ADMT_TS,
-    -- EPIC-specific DSCRG_TS and DSCRG_STS_CD_SK logic
+        WHEN SRC_SYS_REF_CD = 'EPIC' AND CAST(COID AS STRING) = '26960' THEN COALESCE(EPIC_ADMT_TS, ADMT_TS)
+        ELSE ADMT_TS
+    END AS UPDATED_ADMT_TS,
     CASE 
-        WHEN wd.SRC_SYS_REF_CD = 'EPIC' AND wd.COID = '26960' 
-        THEN COALESCE(
-            (SELECT e.DSCRG_TS 
-             FROM epic_logic e 
-             WHERE e.ENCNT_SK = wd.ENCNT_SK AND e.EPIC_RANK <= wd.REC_RANK
-             ORDER BY e.EPIC_RANK DESC
-             LIMIT 1),
-            wd.DSCRG_TS
-        )
-        ELSE wd.DSCRG_TS
-    END AS DSCRG_TS,
+        WHEN SRC_SYS_REF_CD = 'EPIC' AND CAST(COID AS STRING) = '26960' THEN COALESCE(EPIC_DSCRG_TS, DSCRG_TS)
+        ELSE DSCRG_TS
+    END AS UPDATED_DSCRG_TS,
     CASE 
-        WHEN wd.SRC_SYS_REF_CD = 'EPIC' AND wd.COID = '26960' 
-        THEN COALESCE(
-            (SELECT e.DSCRG_STS_CD_SK 
-             FROM epic_logic e 
-             WHERE e.ENCNT_SK = wd.ENCNT_SK AND e.EPIC_RANK <= wd.REC_RANK
-             ORDER BY e.EPIC_RANK DESC
-             LIMIT 1),
-            wd.DSCRG_STS_CD_SK
-        )
-        ELSE wd.DSCRG_STS_CD_SK
-    END AS DSCRG_STS_CD_SK,
-    -- Meditech-specific EXPCT_NUM_OF_INS_PLAN_CNT logic
+        WHEN SRC_SYS_REF_CD = 'EPIC' AND CAST(COID AS STRING) = '26960' THEN COALESCE(EPIC_DSCRG_STS_CD_SK, DSCRG_STS_CD_SK)
+        ELSE DSCRG_STS_CD_SK
+    END AS UPDATED_DSCRG_STS_CD_SK,
     CASE 
-        WHEN wd.SRC_SYS_REF_CD IN ('MEDITECH 6.0', 'EXPANSE') 
-        THEN COALESCE(
-            (SELECT m.EXPCT_NUM_OF_INS_PLAN_CNT 
-             FROM meditech_logic m 
-             WHERE m.ENCNT_SK = wd.ENCNT_SK AND m.MEDITECH_RANK <= wd.REC_RANK
-             ORDER BY m.MEDITECH_RANK DESC
-             LIMIT 1),
-            wd.EXPCT_NUM_OF_INS_PLAN_CNT
-        )
-        ELSE wd.EXPCT_NUM_OF_INS_PLAN_CNT
-    END AS EXPCT_NUM_OF_INS_PLAN_CNT
-FROM wt_encounter_detail_02 wd
+        WHEN SRC_SYS_REF_CD IN ('MEDITECH 6.0', 'EXPANSE') THEN COALESCE(MEDITECH_EXPCT_NUM_OF_INS_PLAN_CNT, EXPCT_NUM_OF_INS_PLAN_CNT)
+        ELSE EXPCT_NUM_OF_INS_PLAN_CNT
+    END AS UPDATED_EXPCT_NUM_OF_INS_PLAN_CNT
+FROM joined_data
