@@ -5,7 +5,7 @@
         sort=['ENCNT_SK', 'VLD_FR_TS'],
         dist='ENCNT_SK',
         incremental_strategy='merge',
-        on_schema_change='sync_all_columns'
+        on_schema_change='fail'
     )
 }}
 

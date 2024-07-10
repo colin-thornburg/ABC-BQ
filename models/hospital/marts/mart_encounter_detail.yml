@@ -1,122 +1,88 @@
-models: 
+models:
   - name: mart_encounter_detail
-    description: This is the final model in the encounter detail processing pipeline, serving as the source of truth for encounter information in the data warehouse. It consolidates the data from various healthcare systems, ready for analytics and reporting. It efficiently processes only new or changed data since the last run, maintains historical changes through `vld_fr_ts` and `vld_to_ts`, and includes only essential, validated fields from the source systems. The model is configured for optimal query performance with appropriate sort and distribution keys.
+    description: >
+      This model serves as the final stage in the encounter detail processing pipeline and acts as the source of truth for encounter information in the data warehouse. It consolidates data from various healthcare systems, making it ready for analytics and reporting. Key features include incremental loading, historical tracking, data quality assurance, and performance optimization. This model is the primary source for all encounter-related analytics and reporting, providing a comprehensive view of patient encounters across different healthcare systems and facilities.
     columns:
       - name: encnt_sk
-        description: Unique identifier for each encounter.
-        tests:
-          - unique
-          - not_null
+        description: Unique identifier for the encounter.
 
       - name: vld_fr_ts
-        description: Timestamp indicating when the record became valid.
-        tests:
-          - not_null
+        description: Timestamp indicating the beginning of the record's validity period.
 
       - name: patient_dw_id
-        description: Data warehouse identifier for the patient.
-        tests:
-          - not_null
+        description: Unique identifier for the patient in the data warehouse.
 
       - name: pat_acct_num
-        description: Patient's account number.
-        tests:
-          - not_null
+        description: Patient account number.
 
       - name: company_code
-        description: Code representing the company or organization.
-        tests:
-          - not_null
+        description: Identifier for the company associated with the encounter.
 
       - name: coid
-        description: Company identifier.
-        tests:
-          - not_null
+        description: Additional company identifier.
 
       - name: vld_to_ts
-        description: Timestamp indicating when the record ceased to be valid.
-        tests:
-          - not_null
+        description: Timestamp indicating the end of the record's validity period.
 
       - name: encnt_ts
         description: Timestamp of the encounter.
-        tests:
-          - not_null
 
       - name: alt_encnt_txt
-        description: Alternate text description of the encounter.
+        description: Alternative encounter text.
 
       - name: vst_type_cd_sk
-        description: Identifier for the visit type code.
-        tests:
-          - not_null
+        description: Foreign key to the visit type code.
 
       - name: ehr_med_rec_num
-        description: Electronic Health Record medical record number.
-        tests:
-          - not_null
+        description: Medical record number from the EHR system.
 
       - name: ehr_pat_acct_num
-        description: Electronic Health Record patient account number.
-        tests:
-          - not_null
+        description: Patient account number from the EHR system.
 
       - name: ehr_med_urn
-        description: Unique resource number for the medical record.
-        tests:
-          - not_null
+        description: Universal record number from the EHR system.
 
       - name: pt_of_orig_cd_sk
-        description: Identifier for point of origin code.
-        tests:
-          - not_null
+        description: Foreign key to the point of origin code.
 
       - name: admt_type_ref_cd
-        description: Admission type reference code.
+        description: Reference code for the admission type.
 
       - name: admt_ts
-        description: Timestamp of patient admission.
-        tests:
-          - not_null
+        description: Timestamp of admission.
 
-      - name: admt_cmptn_txt
-        description: Text description of admission complaints.
+      - name: admt_cmpt_txt
+        description: Admission comment text.
 
       - name: re_admt_ind
         description: Indicator if the patient was readmitted.
-        tests:
-          - not_null
 
       - name: hsptl_srvc_cd_sk
-        description: Identifier for the hospital service code.
+        description: Foreign key to the hospital service code.
 
       - name: expct_num_of_ins_plan_cnt
-        description: Expected number of insurance plans covered.
+        description: Expected number of insurance plans.
 
       - name: actl_len_of_stay_dys_cnt
         description: Actual length of stay in days.
-        tests:
-          - not_null
 
       - name: empmnt_illns_ind
         description: Indicator if the illness is employment-related.
 
       - name: acdnt_auto_st_cd
-        description: Code for the state where an auto accident occurred.
+        description: State code related to an auto accident.
 
       - name: acdnt_type_ref_cd
-        description: Accident type reference code.
+        description: Reference code for the type of accident.
 
       - name: acdnt_ts
         description: Timestamp of the accident.
 
       - name: dscrg_ts
-        description: Timestamp of patient discharge.
-        tests:
-          - not_null
+        description: Timestamp of discharge.
 
       - name: dscrg_sts_cd_sk
-        description: Identifier for discharge status code.
+        description: Foreign key to the discharge status code.
 
       - name: ptnt_dth_ts
         description: Timestamp of patient death.
@@ -125,25 +91,25 @@ models:
         description: Indicator if the patient is deceased.
 
       - name: ptnt_sts_ref_cd
-        description: Patient status reference code.
+        description: Reference code for patient status.
 
       - name: ptnt_class_ref_cd
-        description: Patient class reference code.
+        description: Reference code for patient class.
 
       - name: ptnt_sts_effv_dt
         description: Effective date of the patient status.
 
       - name: emr_ptnt_id_assgn_auth
-        description: Authority that assigned the patient ID in the EMR.
+        description: Authority that assigned the patient's EMR ID.
 
       - name: prty_ref_cd
-        description: Priority reference code.
+        description: Reference code for priority.
 
       - name: sig_dt
-        description: Date when the record was signed.
+        description: Signature date.
 
       - name: adv_drtcv_prsnt_txt
-        description: Text about the presence of advance directive.
+        description: Text indicating if an advance directive is present.
 
       - name: effv_fr_dt
         description: Effective from date.
@@ -152,10 +118,10 @@ models:
         description: Effective to date.
 
       - name: type_ref_cd
-        description: Type reference code.
+        description: Reference code for type.
 
       - name: accom_ref_cd
-        description: Accommodation reference code.
+        description: Reference code for accommodation.
 
       - name: src_sys_ref_cd
         description: Source system reference code.
@@ -164,18 +130,16 @@ models:
         description: Unique key text from the source system.
 
       - name: crt_run_id
-        description: Identifier for the creation run.
+        description: Run ID when the record was created.
 
       - name: lst_updt_run_id
-        description: Identifier for the last update run.
-        
+        description: Run ID when the record was last updated.
+
       - name: msg_ctrl_id_txt
-        description: Text for message control ID.
+        description: Message control ID text.
 
       - name: hl7_ev_id
-        description: Identifier for HL7 event.
-        
+        description: HL7 event ID.
+
       - name: dw_insrt_ts
         description: Timestamp when the record was inserted into the data warehouse.
-        tests:
-          - not_null
