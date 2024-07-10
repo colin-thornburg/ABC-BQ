@@ -1,0 +1,29 @@
+models: 
+  - name: int_encounter_base
+    description: This intermediate model combines HL7 message header (MSH) data with clinical keys, focusing on ADT (Admit/Discharge/Transfer) messages from EPIC while excluding certain message types. It links MSH and clinical keys data based on patient account number and sending facility, providing a foundational dataset for encounter-specific information including identifiers and patient demographics.
+    columns:
+      - name: encnt_sk
+        description: A unique surrogate key representing each encounter.
+        tests:
+          - unique
+          - not_null
+
+      - name: patient_dw_id
+        description: The data warehouse identifier for the patient, used for consistent patient tracking.
+        tests:
+          - not_null
+
+      - name: company_code
+        description: Code representing the company or facility associated with the patient’s encounter.
+        tests:
+          - not_null
+
+      - name: coid
+        description: A unique identifier for the company or organization.
+        tests:
+          - not_null
+
+      - name: encnt_ssukt
+        description: A specific key related to the encounter, possibly used for additional encounter classification and tracking.
+        tests:
+          - not_null

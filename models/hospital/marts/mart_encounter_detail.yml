@@ -1,0 +1,181 @@
+models: 
+  - name: mart_encounter_detail
+    description: This is the final model in the encounter detail processing pipeline, serving as the source of truth for encounter information in the data warehouse. It consolidates the data from various healthcare systems, ready for analytics and reporting. It efficiently processes only new or changed data since the last run, maintains historical changes through `vld_fr_ts` and `vld_to_ts`, and includes only essential, validated fields from the source systems. The model is configured for optimal query performance with appropriate sort and distribution keys.
+    columns:
+      - name: encnt_sk
+        description: Unique identifier for each encounter.
+        tests:
+          - unique
+          - not_null
+
+      - name: vld_fr_ts
+        description: Timestamp indicating when the record became valid.
+        tests:
+          - not_null
+
+      - name: patient_dw_id
+        description: Data warehouse identifier for the patient.
+        tests:
+          - not_null
+
+      - name: pat_acct_num
+        description: Patient's account number.
+        tests:
+          - not_null
+
+      - name: company_code
+        description: Code representing the company or organization.
+        tests:
+          - not_null
+
+      - name: coid
+        description: Company identifier.
+        tests:
+          - not_null
+
+      - name: vld_to_ts
+        description: Timestamp indicating when the record ceased to be valid.
+        tests:
+          - not_null
+
+      - name: encnt_ts
+        description: Timestamp of the encounter.
+        tests:
+          - not_null
+
+      - name: alt_encnt_txt
+        description: Alternate text description of the encounter.
+
+      - name: vst_type_cd_sk
+        description: Identifier for the visit type code.
+        tests:
+          - not_null
+
+      - name: ehr_med_rec_num
+        description: Electronic Health Record medical record number.
+        tests:
+          - not_null
+
+      - name: ehr_pat_acct_num
+        description: Electronic Health Record patient account number.
+        tests:
+          - not_null
+
+      - name: ehr_med_urn
+        description: Unique resource number for the medical record.
+        tests:
+          - not_null
+
+      - name: pt_of_orig_cd_sk
+        description: Identifier for point of origin code.
+        tests:
+          - not_null
+
+      - name: admt_type_ref_cd
+        description: Admission type reference code.
+
+      - name: admt_ts
+        description: Timestamp of patient admission.
+        tests:
+          - not_null
+
+      - name: admt_cmptn_txt
+        description: Text description of admission complaints.
+
+      - name: re_admt_ind
+        description: Indicator if the patient was readmitted.
+        tests:
+          - not_null
+
+      - name: hsptl_srvc_cd_sk
+        description: Identifier for the hospital service code.
+
+      - name: expct_num_of_ins_plan_cnt
+        description: Expected number of insurance plans covered.
+
+      - name: actl_len_of_stay_dys_cnt
+        description: Actual length of stay in days.
+        tests:
+          - not_null
+
+      - name: empmnt_illns_ind
+        description: Indicator if the illness is employment-related.
+
+      - name: acdnt_auto_st_cd
+        description: Code for the state where an auto accident occurred.
+
+      - name: acdnt_type_ref_cd
+        description: Accident type reference code.
+
+      - name: acdnt_ts
+        description: Timestamp of the accident.
+
+      - name: dscrg_ts
+        description: Timestamp of patient discharge.
+        tests:
+          - not_null
+
+      - name: dscrg_sts_cd_sk
+        description: Identifier for discharge status code.
+
+      - name: ptnt_dth_ts
+        description: Timestamp of patient death.
+
+      - name: ptnt_dth_ind
+        description: Indicator if the patient is deceased.
+
+      - name: ptnt_sts_ref_cd
+        description: Patient status reference code.
+
+      - name: ptnt_class_ref_cd
+        description: Patient class reference code.
+
+      - name: ptnt_sts_effv_dt
+        description: Effective date of the patient status.
+
+      - name: emr_ptnt_id_assgn_auth
+        description: Authority that assigned the patient ID in the EMR.
+
+      - name: prty_ref_cd
+        description: Priority reference code.
+
+      - name: sig_dt
+        description: Date when the record was signed.
+
+      - name: adv_drtcv_prsnt_txt
+        description: Text about the presence of advance directive.
+
+      - name: effv_fr_dt
+        description: Effective from date.
+
+      - name: effv_to_dt
+        description: Effective to date.
+
+      - name: type_ref_cd
+        description: Type reference code.
+
+      - name: accom_ref_cd
+        description: Accommodation reference code.
+
+      - name: src_sys_ref_cd
+        description: Source system reference code.
+
+      - name: src_sys_unq_key_txt
+        description: Unique key text from the source system.
+
+      - name: crt_run_id
+        description: Identifier for the creation run.
+
+      - name: lst_updt_run_id
+        description: Identifier for the last update run.
+        
+      - name: msg_ctrl_id_txt
+        description: Text for message control ID.
+
+      - name: hl7_ev_id
+        description: Identifier for HL7 event.
+        
+      - name: dw_insrt_ts
+        description: Timestamp when the record was inserted into the data warehouse.
+        tests:
+          - not_null
