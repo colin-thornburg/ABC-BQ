@@ -2,12 +2,6 @@
     config(
         materialized='incremental',
         unique_key=['ENCNT_SK', 'VLD_FR_TS'],
-        partition_by={
-            "field": "VLD_FR_TS",
-            "data_type": "timestamp",
-            "granularity": "day"
-        },
-        cluster_by=['ENCNT_SK'],
         incremental_strategy='merge',
         on_schema_change='fail'
     )
