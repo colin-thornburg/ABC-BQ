@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: edwhl7_staging_views
+    schema: edwhl7_staging_views
+    tables:
+      - name: HL7_MSH
+      - name: HL7_CLINICAL_KEYS
+      - name: HL7_PV1
+      - name: HL7_CMN_CODE
+      - name: HL7_PV2
+      - name: HL7_IN1
+      - name: HL7_OBX
+      - name: HL7_PID
+  - name: edwcdm_views
+    schema: edwcdm_views
+    tables:
+      - name: HL7_FACILITY_LOAD_LIST
