@@ -1,4 +1,20 @@
--- models/worker_transformations/wt_encounter_detail_01.sql
+/*
+Model: wt_encounter_detail_01
+Location: models/worker_transformations/wt_encounter_detail_01.sql
+
+This is the first worker transformation model in the encounter detail processing pipeline.
+It builds upon the int_encounter_detail model, applying initial transformations and filters:
+
+1. Handles EPIC-specific logic for ENCNT_TS, ADMT_TS, and DSCRG_TS fields.
+2. Adjusts DSCRG_STS_CD_SK for specific EPIC message types.
+3. Calculates PTNT_STS_EFFV_DT from VLD_FR_TS.
+4. Renames some fields for consistency (e.g., SOURCE_INTERFACE to SRC_SYS_REF_CD).
+5. Filters out records with null ENCNT_SK.
+
+Note: Some filtering conditions are currently commented out to allow data flow for testing.
+In production, uncomment these filters to ensure data quality and consistency.
+
+*/
 
 WITH int_encounter_detail AS (
     SELECT * FROM {{ ref('int_encounter_detail') }}

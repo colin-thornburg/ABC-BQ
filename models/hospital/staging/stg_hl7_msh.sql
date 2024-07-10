@@ -23,9 +23,7 @@ renamed AS (
             'MESSAGE_CONTROL_ID', 
             'SENDING_FACILITY', 
             'MESSAGE_DATE_TIME'
-        ]) }} AS MSH_HASH_KEY,
-        _AIRBYTE_EXTRACTED_AT,
-        _AIRBYTE_HL7_MSH_HASHID
+        ]) }} AS MSH_HASH_KEY
     FROM source
 )
 

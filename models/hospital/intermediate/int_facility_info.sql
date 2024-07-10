@@ -30,8 +30,5 @@ facility_info AS (
     FROM stg_facility
 )
 
-/*
-The final SELECT statement. We're selecting all fields from the facility_info CTE.
-*/
 SELECT *
 FROM facility_info

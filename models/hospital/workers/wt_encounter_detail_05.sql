@@ -1,4 +1,26 @@
--- models/worker_transformations/wt_encounter_detail_05.sql
+/*
+This focuses on record ranking and handling null values:
+
+1. Record Ranking:
+   - Assigns a rank (REC_RANK) to each record within an ENCNT_SK group,
+     ordered by VLD_FR_TS, MSG_CTRL_ID_TXT, and DW_INSRT_TS.
+   - This ranking ensures a consistent order for processing records within each encounter.
+
+2. Accommodation Reference Handling:
+   - Implements a LAST_VALUE window function to carry forward the last non-null ACCOM_REF_CD
+     within each ENCNT_SK group.
+   - This ensures that each record has an accommodation reference, even if it's null in the current record.
+
+3. EPIC-specific Logic:
+   - For EPIC source systems, uses the carried-forward LAST_NON_NULL_ACCOM_REF_CD.
+   - For other systems, uses the original ACCOM_REF_CD.
+
+4. Column Selection:
+   - Explicitly selects columns to ensure only relevant fields are included.
+   - Some columns (e.g., ARRV_MODE_CD_SK, CNFD_CD_SK, EMR_PTNT_ID, SPCL_PGM_CD_SK) are commented out,
+     possibly due to data quality issues or irrelevance in this context.
+
+*/
 
 WITH wt_encounter_detail_04 AS (
     SELECT * FROM {{ ref('wt_encounter_detail_04') }}

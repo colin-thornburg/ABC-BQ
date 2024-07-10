@@ -1,4 +1,18 @@
--- models/worker_transformations/wt_encounter_detail_02.sql
+/*
+
+1. Assigns a rank (REC_RANK) to each record within an ENCNT_SK group, 
+   ordered by VLD_FR_TS, MSG_CTRL_ID_TXT, and DW_INSRT_TS.
+   This ranking seems to help with future CDC operations.
+
+2. Adds two new fields:
+   - MESSAGE_TYPE_TRIGGER_EVENT_DIS: Set to 'A13' if DSCRG_TS is NULL, otherwise 'A03'.
+     This helps distinguish between ongoing and completed encounters.
+   - MESSAGE_TYPE_TRIGGER_EVENT_INS: Set to 'A03' if the original MESSAGE_TYPE_TRIGGER_EVENT
+     is 'A03', otherwise 'A01'. This aids in identifying admission events.
+
+These derived fields and rankings prepare the data for handling
+different types of admission and discharge events.
+*/
 
 WITH wt_encounter_detail_01 AS (
     SELECT * FROM {{ ref('wt_encounter_detail_01') }}

@@ -1,4 +1,25 @@
--- models/worker_transformations/wt_encounter_detail_03.sql
+/*
+
+This is focusing on source-specific logic for EPIC and Meditech systems:
+
+1. EPIC-specific Logic:
+   - Filters for EPIC encounters with a specific COID ('26960').
+   - Ranks EPIC encounters within each ENCNT_SK group.
+   - Updates ENCNT_TS, ADMT_TS, DSCRG_TS, and DSCRG_STS_CD_SK for EPIC encounters.
+
+2. Meditech-specific Logic:
+   - Filters for Meditech encounters (MEDITECH 6.0 and EXPANSE).
+   - Ranks Meditech encounters within each ENCNT_SK group.
+   - Updates EXPCT_NUM_OF_INS_PLAN_CNT for Meditech encounters.
+
+3. Data Integration:
+   - Joins the main dataset with EPIC and Meditech specific data.
+   - Uses COALESCE to prioritize source-specific data over general data.
+
+4. Field Updates:
+   - Creates new fields (UPDATED_*) that contain the source-specific values when applicable.
+
+*/
 
 WITH wt_encounter_detail_02 AS (
     SELECT * FROM {{ ref('wt_encounter_detail_02') }}
