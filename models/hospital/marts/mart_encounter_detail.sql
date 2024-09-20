@@ -35,7 +35,8 @@ Note: Some fields (e.g., ARRV_MODE_CD_SK, CNFD_CD_SK) are commented out just bec
 */
 
 WITH final_encounter_data AS (
-    SELECT * FROM {{ ref('wt_encounter_detail_09') }}
+    
+    SELECT * FROM {{ ref('wt_encounter_detail_change_detection') }}
 )
 
 SELECT
@@ -84,7 +85,6 @@ SELECT
     CRT_RUN_ID,
     LST_UPDT_RUN_ID,
     MSG_CTRL_ID_TXT,
-    HL7_EV_ID,
     DW_INSRT_TS
 FROM final_encounter_data
 
